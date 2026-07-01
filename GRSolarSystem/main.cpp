@@ -1,5 +1,6 @@
 #include <iostream>
 #include "rendering.hpp"
+#include "raymath.h"
 #include "planets.hpp"
 #include "general_relativity.hpp"
 #include "rlgl.h"
@@ -19,12 +20,15 @@ int main() {
     Texture2D earthTexture = LoadTexture("resources/earth_texture.png");
 
     Model skysphere = LoadModelFromMesh(GenMeshSphere(100.0f, 32, 32));
-    Model sunModel = LoadModelFromMesh(GenMeshSphere(25.0f, 10, 10));
+    Model sunModel = LoadModelFromMesh(GenMeshSphere(25.0f, 30, 30));
     Model earthModel = LoadModelFromMesh(GenMeshSphere(0.25f, 10, 10));
 
     skysphere.materials[0].maps[MATERIAL_MAP_ALBEDO].texture = background;
     sunModel.materials[0].maps[MATERIAL_MAP_ALBEDO].texture = sunTexture;
     earthModel.materials[0].maps[MATERIAL_MAP_ALBEDO].texture = earthTexture;
+
+    sunModel.transform = MatrixRotateX(PI/2.0f);
+    earthModel.transform = MatrixRotateY(PI / 2.0f);
 
     SetTargetFPS(60);
     DisableCursor();
@@ -38,11 +42,13 @@ int main() {
 
     float days = 0;
 
-    constexpr double dDays = 1;
+    constexpr double dDay = 0.5;
 
     while (!WindowShouldClose()) {
-        updateParticlesEinstein(planets, dDays * 1.0_day);
-        days += dDays;
+        updateParticlesEinstein(planets, dDay * 1.0_day);
+        days += dDay;
+        sunModel.transform *= MatrixRotateY(0.22 * dDay);
+        earthModel.transform *= MatrixRotateY(2*PI*dDay);
         UpdateCamera(&camera, CAMERA_FREE);
         BeginDrawing();
         ClearBackground(WHITE);
@@ -57,12 +63,12 @@ int main() {
                 rlEnableDepthMask();
                 rlEnableBackfaceCulling();
 
-                drawSpatialGrid(300, 100, planets);
+                drawSpatialGrid(300, 75, planets);
                 DrawModel(sunModel, toRenderVector(planets.positions[0]), 1.0f, WHITE);
                 DrawModel(earthModel, toRenderVector(planets.positions[1]), 1.0f, WHITE);
             EndMode3D();
             DrawText(TextFormat("position : (%f, %f, %f)", camera.position.x, camera.position.y, camera.position.z), WIDTH-1200, 0, 50, WHITE);
-            DrawText(TextFormat("days elapsed: %f days", days), WIDTH - 1200, 50, 50, WHITE);
+            DrawText(TextFormat("time elapsed: %f days", days), WIDTH - 1200, 50, 50, WHITE);
             DrawFPS(0, 0);
         EndDrawing();
     }

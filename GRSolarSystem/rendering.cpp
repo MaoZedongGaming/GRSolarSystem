@@ -43,15 +43,24 @@ Vector3 warpRenderPos(Vector3 const& renderPos, Particles const& planets) {
 	return toRenderVector(pos + displacement);
 }
 
+float smoothStep(float edge0, float edge1, float x) {
+	x = std::clamp((x - edge0) / (edge1 - edge0), 0.0f, 1.0f);
+	return x * x * (3 - 2 * x);
+}
+
 Color gravitationalRedshift(Vector3 const& renderPos, Particles const& planets) {
+	static float min = 1.0f;
 	double g_00 = metricAt(0, 0, to4Pos(renderPos), planets, -1);
-	float timeDilation = (float)abs(g_00);
+	float timeDilation = sqrtf(abs(g_00));
+	min = std::min(min, timeDilation);
 
-	float factor = std::clamp(timeDilation, 0.0f, 1.0f);
+	float factor = (timeDilation - min) / (1.0f - min);
+	factor = smoothStep(0.0f, 1.0f, factor);
+	factor = std::clamp(factor, 0.0f, 1.0f);
 
-	unsigned char r = (unsigned char)((1.0f - factor) * 255.0f);
-	unsigned char b = (unsigned char)(factor * 255.0f);
-	unsigned char g = (unsigned char)(factor * 100.0f);
+	unsigned char r = (unsigned char)((1.0f - factor) * 255);
+	unsigned char b = (unsigned char)(factor * 255);
+	unsigned char g = (unsigned char)(factor * 100);
 
 	return Color{ r, g, b, 255 };
 }
