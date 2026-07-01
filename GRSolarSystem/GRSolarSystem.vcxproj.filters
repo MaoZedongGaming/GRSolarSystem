@@ -1,0 +1,66 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
+    </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="Header Files\physics">
+      <UniqueIdentifier>{5febeb92-e1ca-428d-a7b9-64ee513f9b9a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\physics">
+      <UniqueIdentifier>{033c2bb5-8f2c-46a0-9fc5-46e7673219fa}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\rendering">
+      <UniqueIdentifier>{c1ba7b1c-def6-4aff-a426-c142c5b06fd7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\rendering">
+      <UniqueIdentifier>{6502497f-dfb2-4d6e-8b11-d37b24cd5515}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="main.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="general_relativity.cpp">
+      <Filter>Source Files\physics</Filter>
+    </ClCompile>
+    <ClCompile Include="particles.cpp">
+      <Filter>Source Files\physics</Filter>
+    </ClCompile>
+    <ClCompile Include="rendering.cpp">
+      <Filter>Source Files\rendering</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="maths.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="constants.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="literals.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="general_relativity.hpp">
+      <Filter>Header Files\physics</Filter>
+    </ClInclude>
+    <ClInclude Include="particles.hpp">
+      <Filter>Header Files\physics</Filter>
+    </ClInclude>
+    <ClInclude Include="planets.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="rendering.hpp">
+      <Filter>Header Files\rendering</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>
